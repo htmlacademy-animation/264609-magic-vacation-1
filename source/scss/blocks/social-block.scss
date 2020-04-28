@@ -6,6 +6,10 @@
       opacity: 1;
       pointer-events: auto;
     }
+
+    li {
+      animation: socialIn 0.35s linear forwards;
+    }
   }
 }
 
@@ -89,6 +93,7 @@
   margin-top: 1.5rem;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.15s;
 
   @media (min-width: $stop-scaling) {
     margin-top: 15px;
@@ -145,6 +150,17 @@
   li {
     flex: none;
     margin-bottom: 0.5rem;
+    opacity: 0;
+
+
+    transition: all 0.35s ease-in;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        transition-delay: (250ms * $i);
+        animation-delay: (250ms * $i);
+      }
+    }
 
     @media (min-width: $stop-scaling) {
       margin-bottom: 5px;
@@ -158,6 +174,7 @@
       margin: 0 1.25rem;
     }
   }
+
 }
 
 .social-block__link {
@@ -240,5 +257,17 @@
         height: 10px;
       }
     }
+  }
+}
+
+@keyframes socialIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -96,6 +96,10 @@
   font-size: 1.8rem;
   line-height: 2rem;
 
+  opacity: 0;
+
+  @include fadeIn;
+
   @media (min-width: $stop-scaling) {
     margin-top: 36px;
     max-width: 340px;
