@@ -1,7 +1,13 @@
 body.load {
   .page-header {
     opacity: 1;
+    transform: translateY(0px);
     pointer-events: auto;
+  }
+
+  .page-header__logo {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -17,6 +23,7 @@ body.load {
   pointer-events: none;
 
   transition: 0.65s cubic-bezier(0.8, 0, 1, 1);
+  transform: translateY(50px);
 
   @media (min-width: $stop-scaling) {
     padding: 27px 0;
@@ -47,6 +54,11 @@ body.load {
   padding: 1rem 0;
   width: 10rem;
   color: $c-light;
+
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: 0.45s cubic-bezier(0.8, 0, 1, 1);
+  transition-delay: 0.65s;
 
   @media (min-width: $stop-scaling) {
     top: -5px;
