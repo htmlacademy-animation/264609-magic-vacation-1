@@ -1,3 +1,11 @@
+body.load {
+  .screen__footer {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
 .screen {
   position: relative;
   display: flex;
@@ -46,6 +54,12 @@
   color: $c-dark;
   background-color: $c-light;
   z-index: 1;
+
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.65s cubic-bezier(0.8, 0, 1, 1);
 
   @media (max-width: $tablet) and (orientation: portrait) {
     width: 3.5rem;

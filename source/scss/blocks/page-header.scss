@@ -1,3 +1,10 @@
+body.load {
+  .page-header {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .page-header {
   position: fixed;
   top: 0;
@@ -5,6 +12,11 @@
   right: 0;
   padding: 2.7rem 0;
   z-index: 10;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.65s cubic-bezier(0.8, 0, 1, 1);
 
   @media (min-width: $stop-scaling) {
     padding: 27px 0;
