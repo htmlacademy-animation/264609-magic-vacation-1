@@ -301,8 +301,21 @@
   }
 }
 
-.screen--prizes {
+.page-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 100%;
+
   background-color: $c-dark;
+  transform: translateY(100%);
+  transition: transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.screen--prizes.active ~ .page-background  {
+   transform: translateY(0);
 }
 
 .screen--game {
