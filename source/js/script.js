@@ -24,6 +24,6 @@ fullPageScroll.init();
 
 const body = document.querySelector(`body`);
 
-body.onload = function() {
+body.onload = function () {
   body.classList.add(`load`);
-}
+};
