@@ -243,14 +243,18 @@
     padding: 0 0.5em 0.5em;
 
     &::after {
+      display: none;
+
       content: "";
       position: absolute;
       bottom: 0;
-      width: 100%;
+      width: 0;
       height: 2px;
       background-color: $c-light;
-      display: none;
+
       left: 0;
+
+      transition: all 0.35s linear;
 
       @media (min-width: $stop-scaling) {
         left: -5px;
@@ -272,7 +276,8 @@
 
     &.active {
       &::after {
-        display: block;
+          width: 100%;
+          display: block;
       }
     }
 
@@ -282,7 +287,9 @@
       outline: none;
 
       &::after {
-        opacity: 1;
+        display: block;
+        animation: headerUnderline 0.35s linear forwards;
+
         background-color: $c-purple;
       }
     }
@@ -304,5 +311,15 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     margin-left: 0;
     width: 100%;
+  }
+}
+
+@keyframes headerUnderline {
+  from {
+    width: 0;
+  }
+
+  to {
+     width: 100%;
   }
 }

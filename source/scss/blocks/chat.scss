@@ -185,4 +185,7 @@
 
 .chat__footer {
   margin-top: auto;
+  opacity: 0;
+
+  @include slideInLeft;
 }
