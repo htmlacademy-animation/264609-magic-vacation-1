@@ -17,7 +17,9 @@ body.load {
   &--hidden {
     display: none;
   }
-
+  &.active {
+    z-index: 2;
+  }
   @media (max-width: $tablet) and (orientation: portrait) {
     min-height: calc(var(--vh, 1vh) * 100);
   }
@@ -303,7 +305,6 @@ body.load {
 }
 
 .screen--story {
-  background-color: $c-dark;
   background-image: url("../img/slide1.jpg"), url("../img/slide2.jpg"), url("../img/slide3.jpg"), url("../img/slide4.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -313,15 +314,47 @@ body.load {
     background-size: auto calc(100vh - 13.8rem), 100% 25rem;
     background-position: top center, bottom center;
   }
+
+  &.active ~ .page-background {
+    z-index: 2;
+  }
+
 }
 
 .screen--prizes {
-  background-color: $c-dark;
+  &.active {
+    z-index: 3;
+  }
 }
+
+.page-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 0;
+
+  background-color: $c-dark;
+  z-index: 1;
+  transition: height 0.85s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+.screen.active {
+  &:not(.screen--intro):not(.screen--story) ~ .page-background {
+    height: 100%;
+  }
+}
+
+.page-background.active {
+  height: 100%;
+  z-index: 2;
+}
+
+
 
 .screen--game {
   position: relative;
-  background-color: $c-dark;
 
   &::before {
     content: "";
@@ -355,7 +388,7 @@ body.load {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: $c-dark;
+
   opacity: 0;
   pointer-events: none;
 
@@ -365,6 +398,4 @@ body.load {
   }
 }
 
-.screen--rules {
-  background-color: $c-dark;
-}
+
