@@ -301,6 +301,16 @@
     background-position: top center, bottom center;
   }
 
+  &.active ~ .page-background {
+    z-index: 2;
+  }
+
+}
+
+.screen--prizes {
+  &.active {
+    z-index: 3;
+  }
 }
 
 .page-background {
@@ -321,6 +331,12 @@
     height: 100%;
   }
 }
+
+.page-background.active {
+  height: 100%;
+  z-index: 2;
+}
+
 
 
 .screen--game {
