@@ -10318,12 +10318,34 @@ class FullPageScroll {
   }
 
   changeVisibilityDisplay() {
+    const background = document.querySelector(`.page-background`);
+
     this.screenElements.forEach((screen) => {
-      screen.classList.add(`screen--hidden`);
-      screen.classList.remove(`active`);
+      if (this.activeScreen === 2) {
+        background.classList.add(`active`);
+        setTimeout(() => {
+          screen.classList.add(`screen--hidden`);
+          screen.classList.remove(`active`);
+        }, 1000);
+      } else {
+        background.classList.remove(`active`);
+        screen.classList.add(`screen--hidden`);
+        screen.classList.remove(`active`);
+      }
     });
-    this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
-    this.screenElements[this.activeScreen].classList.add(`active`);
+
+    if (this.activeScreen === 2) {
+      background.classList.add(`active`);
+      setTimeout(() => {
+        this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+        this.screenElements[this.activeScreen].classList.add(`active`);
+      }, 1000);
+    } else {
+      background.classList.remove(`active`);
+      this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
+      this.screenElements[this.activeScreen].classList.add(`active`);
+    }
+
   }
 
   changeActiveMenuItem() {
