@@ -66,3 +66,8 @@
 @mixin slideInLeft {
   animation: slideInLeft 0.65s ease-in 0.2s forwards;
 }
+
+@mixin opacity {
+  animation: opacity 0.35s ease-in 0.2s forwards;
+}
+
