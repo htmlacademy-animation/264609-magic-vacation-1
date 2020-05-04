@@ -1,11 +1,9 @@
 class SeparateTextAnimation {
-  constructor(elementSelector, timer, classForActivate, property) {
+  constructor(elementSelector, classForActivate) {
     this._TIME_SPACE = 100;
 
     this._elementSelector = elementSelector;
-    this._timer = timer;
     this._classForActivate = classForActivate;
-    this._property = property;
     this._element = document.querySelector(this._elementSelector);
     this._timeOffset = 0;
     this._counter = 0;
@@ -29,7 +27,7 @@ class SeparateTextAnimation {
       this._timeOffset = 50;
     }
 
-    span.style.transition = `${this._property} ${this._timer}ms ease ${this._timeOffset}ms`;
+    span.style.animationDelay = `${this._timeOffset}ms`;
     return span;
   }
 
