@@ -21,6 +21,7 @@ form();
 social();
 rules();
 
+
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
 
