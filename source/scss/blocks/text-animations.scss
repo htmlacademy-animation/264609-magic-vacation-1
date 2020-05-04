@@ -1,0 +1,45 @@
+.intro__title {
+  .text__word {
+    padding-top: 0.5rem;
+  }
+
+  .text__word:first-child {
+    padding-top: 2.5rem;
+  }
+}
+
+.intro__date {
+  .text__word {
+    padding-top: 0.5rem;
+  }
+}
+
+.text__word {
+  display: inline-block;
+  margin: 0 5px;
+  overflow: hidden;
+}
+
+.text__word > span {
+  transform: translate3d(0, 15rem, 0);
+  display: inline-block;
+}
+
+.screen--intro.active .intro__title.active > .text__word > span {
+  animation: transformText 500ms ease forwards;
+}
+
+.screen--intro.active .intro__date.active > .text__word > span {
+  animation: transformText 500ms ease forwards;
+}
+
+
+@keyframes transformText {
+  from {
+     transform: translate3d(0, 15rem, 0);
+  }
+
+  to {
+     transform: translate3d(0, 0, 0);
+  }
+}
