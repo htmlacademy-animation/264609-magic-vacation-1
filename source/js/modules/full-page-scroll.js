@@ -43,7 +43,7 @@ export default class FullPageScroll {
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
 
-    if( this.activeScreen === 0) {
+    if (this.activeScreen === 0) {
       setTimeout(()=>{
         animationIntroTitle.runAnimation();
       }, 500);
