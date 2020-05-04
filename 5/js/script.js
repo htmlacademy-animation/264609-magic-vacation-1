@@ -10118,13 +10118,11 @@ module.exports = code;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SeparateTextAnimation", function() { return SeparateTextAnimation; });
 class SeparateTextAnimation {
-  constructor(elementSelector, timer, classForActivate, property) {
+  constructor(elementSelector, classForActivate) {
     this._TIME_SPACE = 100;
 
     this._elementSelector = elementSelector;
-    this._timer = timer;
     this._classForActivate = classForActivate;
-    this._property = property;
     this._element = document.querySelector(this._elementSelector);
     this._timeOffset = 0;
     this._counter = 0;
@@ -10148,7 +10146,7 @@ class SeparateTextAnimation {
       this._timeOffset = 50;
     }
 
-    span.style.transition = `${this._property} ${this._timer}ms ease ${this._timeOffset}ms`;
+    span.style.animationDelay = `${this._timeOffset}ms`;
     return span;
   }
 
@@ -10359,7 +10357,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FullPageScroll; });
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _animations_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animations.js */ "./source/js/modules/animations.js");
 
+
+
+const animationIntroTitle = new _animations_js__WEBPACK_IMPORTED_MODULE_1__["SeparateTextAnimation"](`.intro__title`, `active`);
+const animationIntroDate = new _animations_js__WEBPACK_IMPORTED_MODULE_1__["SeparateTextAnimation"](`.intro__date`, `active`);
 
 class FullPageScroll {
   constructor() {
@@ -10399,6 +10402,18 @@ class FullPageScroll {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
+
+    if (this.activeScreen === 0) {
+      setTimeout(()=>{
+        animationIntroTitle.runAnimation();
+      }, 500);
+      setTimeout(()=>{
+        animationIntroDate.runAnimation();
+      }, 1000);
+    } else {
+      animationIntroTitle.destroyAnimation();
+      animationIntroDate.destroyAnimation();
+    }
   }
 
   changeVisibilityDisplay() {
@@ -10429,7 +10444,6 @@ class FullPageScroll {
       this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
       this.screenElements[this.activeScreen].classList.add(`active`);
     }
-
   }
 
   changeActiveMenuItem() {
@@ -10460,33 +10474,6 @@ class FullPageScroll {
     }
   }
 }
-
-
-/***/ }),
-
-/***/ "./source/js/modules/intro.js":
-/*!************************************!*\
-  !*** ./source/js/modules/intro.js ***!
-  \************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _animations_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animations.js */ "./source/js/modules/animations.js");
-
-
-/* harmony default export */ __webpack_exports__["default"] = (() => {
-  const animationIntroTitle = new _animations_js__WEBPACK_IMPORTED_MODULE_0__["SeparateTextAnimation"](`.intro__title`, 500, `active`, `transform`);
-  setTimeout(()=>{
-    animationIntroTitle.runAnimation();
-  }, 500);
-
-  const animationIntroDate = new _animations_js__WEBPACK_IMPORTED_MODULE_0__["SeparateTextAnimation"](`.intro__date`, 500, `active`, `transform`);
-  setTimeout(()=>{
-    animationIntroDate.runAnimation();
-  }, 1000);
-});
 
 
 /***/ }),
@@ -10757,9 +10744,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_social_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/social.js */ "./source/js/modules/social.js");
 /* harmony import */ var _modules_full_page_scroll__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/full-page-scroll */ "./source/js/modules/full-page-scroll.js");
 /* harmony import */ var _modules_rules_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/rules.js */ "./source/js/modules/rules.js");
-/* harmony import */ var _modules_intro_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/intro.js */ "./source/js/modules/intro.js");
 // modules
-
 
 
 
@@ -10781,7 +10766,7 @@ Object(_modules_result_js__WEBPACK_IMPORTED_MODULE_5__["default"])();
 Object(_modules_form_js__WEBPACK_IMPORTED_MODULE_6__["default"])();
 Object(_modules_social_js__WEBPACK_IMPORTED_MODULE_7__["default"])();
 Object(_modules_rules_js__WEBPACK_IMPORTED_MODULE_9__["default"])();
-Object(_modules_intro_js__WEBPACK_IMPORTED_MODULE_10__["default"])();
+
 
 const fullPageScroll = new _modules_full_page_scroll__WEBPACK_IMPORTED_MODULE_8__["default"]();
 fullPageScroll.init();
