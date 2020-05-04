@@ -319,6 +319,32 @@ body.load {
     z-index: 2;
   }
 
+  &.active {
+    .slider__pagination.swiper-pagination {
+      animation-name: opacity;
+      animation-duration: 0.5s;
+      animation-delay: 0.8s;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+    }
+
+    .slider__control--prev {
+      animation-name: leftSlideButton;
+      animation-duration: 0.8s;
+      animation-delay: 0.8s;
+      animation-timing-function: cubic-bezier(.5,.8,.68,1.2);
+      animation-fill-mode: both;
+    }
+
+    .slider__control--next {
+      animation-name: rightSlideButton;
+      animation-duration: 0.8s;
+      animation-delay: 0.8s;
+      animation-timing-function: cubic-bezier(.5,.8,.68,1.2);
+      animation-fill-mode: both;
+    }
+  }
+
 }
 
 .screen--prizes {

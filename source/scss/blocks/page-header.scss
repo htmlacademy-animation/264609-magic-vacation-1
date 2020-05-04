@@ -267,32 +267,24 @@ body.load {
     padding: 0 0.5em 0.5em;
 
     &::after {
-      display: none;
-
       content: "";
       position: absolute;
       bottom: 0;
+      right: 0;
+
       width: 0;
       height: 2px;
       background-color: $c-light;
 
-      left: 0;
 
-      transition: all 0.35s linear;
-
-      @media (min-width: $stop-scaling) {
-        left: -5px;
-        right: -5px;
-      }
+      transition: width 0.35s ease;
 
       @media (max-width: $tablet) and (orientation: portrait) {
-        left: 0;
         right: 0;
         background-color: $c-dark;
       }
 
       @media (max-width: $mobile) and (orientation: landscape) {
-        left: 0;
         right: 0;
         background-color: $c-dark;
       }
@@ -301,7 +293,6 @@ body.load {
     &.active {
       &::after {
           width: 100%;
-          display: block;
       }
     }
 
@@ -311,8 +302,10 @@ body.load {
       outline: none;
 
       &::after {
-        display: block;
-        animation: headerUnderline 0.35s linear forwards;
+        // animation: headerUnderline 0.35s linear forwards;
+        width: 100%;
+        right: auto;
+        left: 0;
 
         background-color: $c-purple;
       }
@@ -335,15 +328,5 @@ body.load {
   @media (max-width: $mobile) and (orientation: landscape) {
     margin-left: 0;
     width: 100%;
-  }
-}
-
-@keyframes headerUnderline {
-  from {
-    width: 0;
-  }
-
-  to {
-     width: 100%;
   }
 }
