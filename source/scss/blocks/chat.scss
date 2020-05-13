@@ -187,5 +187,5 @@
   margin-top: auto;
   opacity: 0;
 
-  @include slideInLeft;
+  animation: slideInLeft 0.65s ease-in 0.2s both;;
 }

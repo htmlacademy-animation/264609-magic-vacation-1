@@ -1,4 +1,8 @@
 import throttle from 'lodash/throttle';
+import {SeparateTextAnimation} from './animations.js';
+
+const animationIntroTitle = new SeparateTextAnimation(`.intro__title`, `active`);
+const animationIntroDate = new SeparateTextAnimation(`.intro__date`, `active`);
 
 export default class FullPageScroll {
   constructor() {
@@ -37,6 +41,18 @@ export default class FullPageScroll {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
+
+    if (this.activeScreen === 0) {
+      setTimeout(()=>{
+        animationIntroTitle.runAnimation();
+      }, 500);
+      setTimeout(()=>{
+        animationIntroDate.runAnimation();
+      }, 1000);
+    } else {
+      animationIntroTitle.destroyAnimation();
+      animationIntroDate.destroyAnimation();
+    }
   }
 
   setPrizesSvg() {
