@@ -10107,6 +10107,88 @@ module.exports = code;
 
 /***/ }),
 
+/***/ "./source/js/modules/animations.js":
+/*!*****************************************!*\
+  !*** ./source/js/modules/animations.js ***!
+  \*****************************************/
+/*! exports provided: SeparateTextAnimation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SeparateTextAnimation", function() { return SeparateTextAnimation; });
+class SeparateTextAnimation {
+  constructor(elementSelector, classForActivate) {
+    this._TIME_SPACE = 100;
+
+    this._elementSelector = elementSelector;
+    this._classForActivate = classForActivate;
+    this._element = document.querySelector(this._elementSelector);
+    this._timeOffset = 0;
+    this._counter = 0;
+    this.prePareText();
+  }
+
+  createElement(letter) {
+    const span = document.createElement(`span`);
+    span.textContent = letter;
+
+    if (this._counter === 6) {
+      this._counter = 0;
+    }
+    this._counter++;
+
+    if (this._counter % 2 === 0 && this._counter < 5) {
+      this._timeOffset = 150;
+    } else if (this._counter > 4) {
+      this._timeOffset = 200;
+    } else {
+      this._timeOffset = 50;
+    }
+
+    span.style.animationDelay = `${this._timeOffset}ms`;
+    return span;
+  }
+
+  prePareText() {
+    if (!this._element) {
+      return;
+    }
+    const text = this._element.textContent.trim().split(` `).filter((latter)=>latter !== ``);
+
+    const content = text.reduce((fragmentParent, word) => {
+      const wordElement = Array.from(word).reduce((fragment, latter) => {
+        fragment.appendChild(this.createElement(latter));
+        return fragment;
+      }, document.createDocumentFragment());
+      const wordContainer = document.createElement(`span`);
+      wordContainer.classList.add(`text__word`);
+      wordContainer.appendChild(wordElement);
+      fragmentParent.appendChild(wordContainer);
+      return fragmentParent;
+    }, document.createDocumentFragment());
+
+    this._element.innerHTML = ``;
+    this._element.appendChild(content);
+  }
+
+  runAnimation() {
+    if (!this._element) {
+      return;
+    }
+    this._element.classList.add(this._classForActivate);
+  }
+
+  destroyAnimation() {
+    this._element.classList.remove(this._classForActivate);
+  }
+}
+
+
+
+
+/***/ }),
+
 /***/ "./source/js/modules/chat.js":
 /*!***********************************!*\
   !*** ./source/js/modules/chat.js ***!
@@ -10275,7 +10357,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FullPageScroll; });
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _animations_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./animations.js */ "./source/js/modules/animations.js");
 
+
+
+const animationIntroTitle = new _animations_js__WEBPACK_IMPORTED_MODULE_1__["SeparateTextAnimation"](`.intro__title`, `active`);
+const animationIntroDate = new _animations_js__WEBPACK_IMPORTED_MODULE_1__["SeparateTextAnimation"](`.intro__date`, `active`);
 
 class FullPageScroll {
   constructor() {
@@ -10314,6 +10401,18 @@ class FullPageScroll {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
+
+    if (this.activeScreen === 0) {
+      setTimeout(()=>{
+        animationIntroTitle.runAnimation();
+      }, 500);
+      setTimeout(()=>{
+        animationIntroDate.runAnimation();
+      }, 1000);
+    } else {
+      animationIntroTitle.destroyAnimation();
+      animationIntroDate.destroyAnimation();
+    }
   }
 
   setPrizesSvg() {
