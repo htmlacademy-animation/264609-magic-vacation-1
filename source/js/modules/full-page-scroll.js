@@ -56,6 +56,11 @@ export default class FullPageScroll {
     }
   }
 
+  setPrizesSvg() {
+    let element = document.querySelector(`.primary-award`);
+    element.src = element.dataset.src;
+  }
+
   changeVisibilityDisplay() {
     const background = document.querySelector(`.page-background`);
 
@@ -70,6 +75,10 @@ export default class FullPageScroll {
         background.classList.remove(`active`);
         screen.classList.add(`screen--hidden`);
         screen.classList.remove(`active`);
+      }
+
+      if (this.screenElements[this.activeScreen].classList.contains(`screen--prizes`)) {
+        this.setPrizesSvg();
       }
     });
 
