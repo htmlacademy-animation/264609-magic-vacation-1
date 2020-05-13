@@ -1,3 +1,38 @@
+.screen--rules.active {
+  .rules__item p {
+    animation-name: rulesIn;
+    animation-duration: 0.65s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+  }
+
+  .rules__item::before {
+    animation-name: bounceNum;
+    animation-duration: 0.65s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+  }
+
+  .rules__link.btn {
+    overflow: hidden;
+    border-radius: 3.5rem;
+    color: transparent;
+    transition: color 0.35s ease;
+    transition-delay: 0.65s;
+
+    &::before {
+      transform: translate(50%, -50%);
+      transition: transform 0.65s ease;
+    }
+
+    &.show {
+      color: $c-dark;
+      &::before {
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
 .rules {
   position: relative;
   flex-grow: 1;
@@ -182,6 +217,16 @@
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
+    }
+  }
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) p {
+      animation-delay: (450ms * ($i));
+    }
+
+    &:nth-child(#{$i})::before {
+      animation-delay: (450ms * $i);
     }
   }
 }
