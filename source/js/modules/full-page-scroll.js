@@ -1,8 +1,4 @@
 import throttle from 'lodash/throttle';
-import {SeparateTextAnimation} from './animations.js';
-
-const animationIntroTitle = new SeparateTextAnimation(`.intro__title`, `active`);
-const animationIntroDate = new SeparateTextAnimation(`.intro__date`, `active`);
 
 export default class FullPageScroll {
   constructor() {
@@ -13,15 +9,14 @@ export default class FullPageScroll {
 
     this.activeScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
-    this.onUrlHashChengedHandler = this.onUrlHashChenged.bind(this);
+    this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
   }
 
   init() {
-    document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT));
+    document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT, {trailing: true}));
     window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
 
-    this.onUrlHashChenged();
-    this.changePageDisplay();
+    this.onUrlHashChanged();
   }
 
   onScroll(evt) {
@@ -32,7 +27,7 @@ export default class FullPageScroll {
     }
   }
 
-  onUrlHashChenged() {
+  onUrlHashChanged() {
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
     this.changePageDisplay();
@@ -42,18 +37,6 @@ export default class FullPageScroll {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
-
-    if (this.activeScreen === 0) {
-      setTimeout(()=>{
-        animationIntroTitle.runAnimation();
-      }, 500);
-      setTimeout(()=>{
-        animationIntroDate.runAnimation();
-      }, 1000);
-    } else {
-      animationIntroTitle.destroyAnimation();
-      animationIntroDate.destroyAnimation();
-    }
   }
 
   setPrizesSvg() {

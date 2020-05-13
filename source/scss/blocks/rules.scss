@@ -1,39 +1,3 @@
-.screen--rules.active {
-  .rules__item p {
-    animation-name: rulesIn;
-    animation-duration: 0.65s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
-
-  .rules__item::before {
-    animation-name: bounceNum;
-    animation-duration: 0.65s;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-  }
-
-  .rules__link.btn {
-    overflow: hidden;
-    border-radius: 3.5rem;
-    color: transparent;
-    transition: color 0.35s ease;
-    transition-delay: 0.65s;
-
-    &::before {
-      transform: translate(50%, -50%);
-      transition: transform 0.65s ease;
-    }
-
-    &.show {
-      color: $c-dark;
-      &::before {
-        transform: translate(-50%, -50%);
-      }
-    }
-  }
-}
-
 .rules {
   position: relative;
   flex-grow: 1;
@@ -135,7 +99,7 @@
   @media (min-width: $stop-scaling) {
     column-gap: 96px;
     padding-top: 70px;
-    max-width: 780px;
+    max-width: 696px;
   }
 
   @media (max-width: $tablet) and (orientation: portrait) {
@@ -162,8 +126,8 @@
 
   @media (min-width: $stop-scaling) {
     margin: 0 0 62px;
-    padding-top: 28px;
-    padding-left: 100px;
+    padding-top: 6px;
+    min-height: 5rem;
   }
 
   @media (max-width: $tablet) and (orientation: portrait) {
@@ -186,10 +150,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
     width: 4.5rem;
     height: 4.5rem;
     font-family: $font-alt;
@@ -199,12 +159,6 @@
     border-radius: 50%;
     line-height: 5rem;
     text-align: center;
-
-    opacity: 0;
-
-    @media (min-width: $stop-scaling) {
-      top: 10px;
-    }
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
@@ -226,20 +180,8 @@
   p {
     margin: 0;
 
-    opacity: 0;
-
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
-    }
-  }
-
-  @for $i from 1 through 4 {
-    &:nth-child(#{$i}) p {
-      animation-delay: (450ms * ($i));
-    }
-
-    &:nth-child(#{$i})::before {
-      animation-delay: (450ms * $i);
     }
   }
 }
@@ -269,4 +211,3 @@
     right: 1.5rem;
   }
 }
-
