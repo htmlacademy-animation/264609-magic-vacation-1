@@ -57,7 +57,10 @@ export default class FullPageScroll {
 
   setPrizesSvg() {
     let element = document.querySelector(`.primary-award`);
+    let elementTwo = document.querySelector(`.secondary-award`);
+
     element.src = element.dataset.src;
+    elementTwo.src = elementTwo.dataset.src;
   }
 
   changeVisibilityDisplay() {
