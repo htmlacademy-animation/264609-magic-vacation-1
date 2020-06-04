@@ -29,6 +29,31 @@
   }
 }
 
+.form__field-wrap {
+  overflow: hidden;
+  width: calc(100% - 24rem);
+  margin-right: 3rem;
+  border-radius: 3.5rem;
+
+  @media (max-width: $tablet) and (orientation: landscape) {
+    width: calc(100% - 9rem);
+  }
+
+  @media (max-width: $mobile) and (orientation: landscape) {
+    margin-right: 1rem;
+  }
+
+  @media (min-width: $stop-scaling) {
+    margin-right: 30px;
+    width: calc(100% - 210px);
+  }
+
+  @media (orientation: portrait) {
+    margin-right: 1rem;
+    width: calc(100% - 5rem);
+  }
+}
+
 .form__field {
   flex: none;
   margin-right: 3rem;
