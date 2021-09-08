@@ -1,11 +1,12 @@
 import throttle from 'lodash/throttle';
-import {SeparateTextAnimation} from './animations.js';
-import {timerAnimation} from './game.js';
+import {SeparateTextAnimation} from './separateTextAnim.js';
+import {TimerAnimation} from './game.js';
 
 const animationIntroTitle = new SeparateTextAnimation(`.intro__title`, `active`);
 const animationIntroDate = new SeparateTextAnimation(`.intro__date`, `active`);
 const animationHistoryTitle = new SeparateTextAnimation(`.slider__item-title--history`, `active`);
 const animationPrizeTitle = new SeparateTextAnimation(`.prizes__title`, `active`);
+const animationTimer = new TimerAnimation(`.game__counter`, 5);
 
 export default class FullPageScroll {
   constructor() {
@@ -45,8 +46,6 @@ export default class FullPageScroll {
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
 
-    let requestId;
-
     if (this.activeScreen === 0) {
       setTimeout(()=>{
         animationIntroTitle.runAnimation();
@@ -63,9 +62,9 @@ export default class FullPageScroll {
     }
 
     if (this.activeScreen === 4) {
-      requestId = requestAnimationFrame(timerAnimation);
+      animationTimer.startTimer();
     } else {
-      cancelAnimationFrame(requestId);
+      animationTimer.clearTimer();
     }
 
   }
