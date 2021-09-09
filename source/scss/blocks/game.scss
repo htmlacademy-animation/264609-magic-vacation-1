@@ -71,6 +71,7 @@
 }
 
 .game__counter {
+  display: flex;
   margin: 0;
   text-transform: uppercase;
   font-family: $font-alt;
@@ -79,6 +80,13 @@
   line-height: 0.906;
   letter-spacing: 0;
 
+  span {
+    min-width: 58px;
+  }
+
+  .game__seconds {
+    margin-left: 5px;
+  }
   @media (min-width: $stop-scaling) {
     font-size: 48px;
   }
