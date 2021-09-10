@@ -1,12 +1,6 @@
 import throttle from 'lodash/throttle';
-import {SeparateTextAnimation} from './separateTextAnim.js';
-import {TimerAnimation} from './game.js';
+import PageSwitchHandler from './page-switch-handler';
 
-const animationIntroTitle = new SeparateTextAnimation(`.intro__title`, `active`);
-const animationIntroDate = new SeparateTextAnimation(`.intro__date`, `active`);
-const animationHistoryTitle = new SeparateTextAnimation(`.slider__item-title--history`, `active`);
-const animationPrizeTitle = new SeparateTextAnimation(`.prizes__title`, `active`);
-const animationTimer = new TimerAnimation(`.game__counter`, 5);
 
 export default class FullPageScroll {
   constructor() {
@@ -18,6 +12,7 @@ export default class FullPageScroll {
     this.activeScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
     this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.sectionSwitcher = new PageSwitchHandler();
   }
 
   init() {
@@ -45,28 +40,7 @@ export default class FullPageScroll {
     this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
     this.emitChangeDisplayEvent();
-
-    if (this.activeScreen === 0) {
-      setTimeout(()=>{
-        animationIntroTitle.runAnimation();
-      }, 500);
-      setTimeout(()=>{
-        animationIntroDate.runAnimation();
-      }, 1000);
-    } else if (this.activeScreen === 1) {
-      animationHistoryTitle.runAnimation();
-    } else {
-      animationIntroTitle.destroyAnimation();
-      animationIntroDate.destroyAnimation();
-      animationHistoryTitle.runAnimation();
-    }
-
-    if (this.activeScreen === 4) {
-      animationTimer.startTimer();
-    } else {
-      animationTimer.clearTimer();
-    }
-
+    this.sectionSwitcher.setSectionScheme(this.screenElements[this.activeScreen].id);
   }
 
   setPrizesSvg() {
@@ -81,6 +55,7 @@ export default class FullPageScroll {
 
   changeVisibilityDisplay() {
     const background = document.querySelector(`.page-background`);
+    const changeDisplayTimeOut = this.activeScreen === 2 ? 1000 : 100;
 
     this.screenElements.forEach((screen) => {
       if (this.activeScreen === 2) {
@@ -88,16 +63,11 @@ export default class FullPageScroll {
         setTimeout(() => {
           screen.classList.add(`screen--hidden`);
           screen.classList.remove(`active`);
-        }, 1000);
+        }, changeDisplayTimeOut);
       } else {
         background.classList.remove(`active`);
         screen.classList.add(`screen--hidden`);
         screen.classList.remove(`active`);
-      }
-
-      if (this.screenElements[this.activeScreen].classList.contains(`screen--prizes`)) {
-        this.setPrizesSvg();
-        animationPrizeTitle.runAnimation();
       }
     });
 
@@ -110,7 +80,9 @@ export default class FullPageScroll {
     } else {
       background.classList.remove(`active`);
       this.screenElements[this.activeScreen].classList.remove(`screen--hidden`);
-      this.screenElements[this.activeScreen].classList.add(`active`);
+      setTimeout(() => {
+        this.screenElements[this.activeScreen].classList.add(`active`);
+      }, 100);
     }
   }
 

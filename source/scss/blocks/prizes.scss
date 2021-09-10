@@ -261,10 +261,18 @@
   }
 
   b {
+    display: inline-flex;
+    min-width: 68px;
+
     font-family: $font-alt;
     font-weight: 400;
     font-size: 12rem;
     line-height: 0.55;
+
+    &.prizes__number--big {
+      min-width: 198px;
+      text-align: right;
+    }
 
     @media (min-width: $stop-scaling) {
       font-size: 120px;
